@@ -10,8 +10,8 @@ using Sanda_Ionut_Lab8.Data;
 namespace Sanda_Ionut_Lab8.Migrations
 {
     [DbContext(typeof(Sanda_Ionut_Lab8Context))]
-    [Migration("20220111165701_BookCategory")]
-    partial class BookCategory
+    [Migration("20220112142738_SingleMigration")]
+    partial class SingleMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,9 @@ namespace Sanda_Ionut_Lab8.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Auther")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
@@ -41,7 +43,9 @@ namespace Sanda_Ionut_Lab8.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("ID");
 

@@ -1,17 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sanda_Ionut_Lab8.Migrations
 {
-    public partial class BookCategory : Migration
+    public partial class SingleMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "PublisherID",
-                table: "Book",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
@@ -36,6 +31,29 @@ namespace Sanda_Ionut_Lab8.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Publisher", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(maxLength: 150, nullable: false),
+                    Auther = table.Column<string>(maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    PublishingDate = table.Column<DateTime>(nullable: false),
+                    PublisherID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Book_Publisher_PublisherID",
+                        column: x => x.PublisherID,
+                        principalTable: "Publisher",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,38 +96,21 @@ namespace Sanda_Ionut_Lab8.Migrations
                 name: "IX_BookCategory_CategoryID",
                 table: "BookCategory",
                 column: "CategoryID");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Book_Publisher_PublisherID",
-                table: "Book",
-                column: "PublisherID",
-                principalTable: "Publisher",
-                principalColumn: "ID",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Book_Publisher_PublisherID",
-                table: "Book");
-
             migrationBuilder.DropTable(
                 name: "BookCategory");
 
             migrationBuilder.DropTable(
-                name: "Publisher");
+                name: "Book");
 
             migrationBuilder.DropTable(
                 name: "Category");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Book_PublisherID",
-                table: "Book");
-
-            migrationBuilder.DropColumn(
-                name: "PublisherID",
-                table: "Book");
+            migrationBuilder.DropTable(
+                name: "Publisher");
         }
     }
 }
