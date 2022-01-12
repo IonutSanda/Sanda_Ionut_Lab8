@@ -10,8 +10,8 @@ using Sanda_Ionut_Lab8.Data;
 namespace Sanda_Ionut_Lab8.Migrations
 {
     [DbContext(typeof(Sanda_Ionut_Lab8Context))]
-    [Migration("20220112142738_SingleMigration")]
-    partial class SingleMigration
+    [Migration("20220112143510_SecondAttempt")]
+    partial class SecondAttempt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

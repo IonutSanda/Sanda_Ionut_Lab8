@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sanda_Ionut_Lab8.Migrations
 {
-    public partial class SingleMigration : Migration
+    public partial class SecondAttempt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
